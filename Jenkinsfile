@@ -26,13 +26,15 @@ pipeline {
 					if ("${GIT_BRANCH}" == 'origin/main') {
 						sh '''
 						ssh -i "~/.ssh/id_rsa" jenkins@34.142.90.72 << EOF
-						// docker rm -f $containerName
+						
 						'''
+                        //docker rm -f $containerName
 					} else if ("${GIT_BRANCH}" == 'origin/development') {
 						sh '''
 						ssh -i "~/.ssh/id_rsa" jenkins@34.105.192.100 << EOF
-						// docker rm -f $containerName
+						
 						'''
+                        //docker rm -f $containerName
 					}
 					}
                 }
