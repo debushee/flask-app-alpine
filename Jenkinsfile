@@ -8,21 +8,21 @@ pipeline {
 		stage('Docker Build'){
 			steps{
 			sh '''
-			docker build -t $imageName:latest -t $imageName:build-$BUILD_NUMBER .
+			docker build -t $containerName:latest -t $containerName:build-$BUILD_NUMBER .
 			'''
 			}
 		}
-		stage('Push Images'){
+		// stage('Push Images'){
+		// 	steps{
+		// 	sh '''
+		// 	docker push $imageName:latest
+		// 	docker push $imageName:build-$BUILD_NUMBER
+		// 	'''
+		// 	}
+        //         }
+        stage('Stopping container'){
 			steps{
-			sh '''
-			docker push $imageName:latest
-			docker push $imageName:build-$BUILD_NUMBER
-			'''
-			}
-                }
-stage('Stopping container'){
-			steps{
-			script {
+			    script {
 					if ("${GIT_BRANCH}" == 'origin/main') {
 						sh '''
 						ssh -i "~/.ssh/id_rsa" jenkins@34.142.90.72 << EOF
@@ -43,12 +43,12 @@ stage('Stopping container'){
 					if ("${GIT_BRANCH}" == 'origin/main') {
 						sh '''
 						ssh -i "~/.ssh/id_rsa" jenkins@34.142.90.72 << EOF
-						docker run -d -p 80:5500 --name $containerName $imageName:latest
+						docker run -d -p 80:5500 --name $containerName $containerName:latest
 						'''
 					} else if ("${GIT_BRANCH}" == 'origin/development') {
 						sh '''
 						ssh -i "~/.ssh/id_rsa" jenkins@34.105.192.100 << EOF
-						docker run -d -p 80:5500 --name $containerName $imageName:latest
+						docker run -d -p 80:5500 --name $containerName $containerName:latest
 						'''
 					}
 				}
