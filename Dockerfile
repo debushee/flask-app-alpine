@@ -9,6 +9,6 @@ RUN pip install -r "requirements.txt"
 # Set YOUR_NAME environment variable
 ENV YOUR_NAME="Niall"
 # Expose the correct port
-EXPOSE 5001
+EXPOSE 5500
 # Create an entrypoint
 ENTRYPOINT ["python", "app.py"]
