@@ -8,7 +8,7 @@ pipeline {
 		stage('Docker Build'){
 			steps{
 			sh '''
-			docker build -t $containerName:latest -t $containerName:build-$BUILD_NUMBER .
+			docker build -t $imageName:latest -t $imageName:build-$BUILD_NUMBER .
 			'''
 			}
 		}
@@ -43,12 +43,12 @@ pipeline {
 					if ("${GIT_BRANCH}" == 'origin/main') {
 						sh '''
 						ssh -i "~/.ssh/id_rsa" jenkins@34.142.90.72 << EOF
-						docker run -d -p 80:5500 --name $containerName $containerName:latest
+						docker run -d -p 80:5500 --name $containerName $imageName:latest
 						'''
 					} else if ("${GIT_BRANCH}" == 'origin/development') {
 						sh '''
 						ssh -i "~/.ssh/id_rsa" jenkins@34.105.192.100 << EOF
-						docker run -d -p 80:5500 --name $containerName $containerName:latest
+						docker run -d -p 80:5500 --name $containerName $imageName:latest
 						'''
 					}
 				}
