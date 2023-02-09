@@ -1,8 +1,8 @@
 pipeline {
 	agent any
 	environment { // GIVE THESE VALUES
-		containerName="flask-app-alpine";
-		imageName="eu.gcr.io/lbg-cloud-incubation/flask-app-alpine";
+		containerName="flask-app-alpine-niall";
+		imageName="eu.gcr.io/lbg-cloud-incubation/flask-app-alpine-niall";
 	}
 	stages{
 		stage('Docker Build'){
